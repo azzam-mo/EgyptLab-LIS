@@ -32,7 +32,7 @@ The directories for security, clinical configuration, and testing are placeholde
 
 The repository is stored entirely at `Z:\lab`, including a real `.git` directory. `git init` fails directly on this SSHFS mount, so the `.git` directory was created locally and copied into place; verified with `git -C Z:\lab status`. Avoid deleting or replacing that directory.
 
-A GitHub remote will be added once the repository URL and access method are provided.
+GitHub remote: `https://github.com/azzam-mo/EgyptLab-LIS` (private). Local backup remote: `D:\EgyptLab-LIS-backup.git`.
 
 ## Quick start
 

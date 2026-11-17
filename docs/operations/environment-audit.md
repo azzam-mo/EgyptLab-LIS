@@ -60,29 +60,33 @@ No package versions or deployment tooling have been selected; the guide requires
 
 The target laboratory network, firewall rules, and LAN client requirements have not been inspected.
 
-## Git repository workaround
+## Git repository setup
 
-`git init` fails directly on the `Z:` SSHFS mount with `Permission denied` and `Function not implemented` errors, although ordinary file creation works. The repository was initialized as follows:
+`git init` fails directly on the `Z:` SSHFS mount with `Permission denied` and `Function not implemented` errors, although ordinary file creation works. Copying a locally initialized `.git` directory onto the mount does work. The final setup is:
 
-1. A bare Git directory was created at `D:\EgyptLab-LIS-gitdir` with `main` as the initial branch.
-2. `core.bare` was set to `false` and `core.worktree` to `Z:/lab`.
-3. A plain text file `Z:\lab\.git` was created with the content `gitdir: D:/EgyptLab-LIS-gitdir`.
+1. Repository root: `Z:\lab`, including a real `.git` directory.
+2. Initial branch: `main`.
+3. The temporary `D:\EgyptLab-LIS-gitdir` metadata location and the `.git` pointer file were removed.
 
-Verified: `git -C Z:\lab status --short --branch` reports `## No commits yet on main`. This workaround must be accepted or replaced before Phase 1.
+Verified: `git -C Z:\lab status --short --branch` works. A repository-local commit identity was configured as `EgyptLab LIS Developer <dev@egyptlab.local>` because no global identity exists.
+
+## Owner decisions recorded during Phase 0
+
+1. Development environment: a Linux host will be provisioned. This Windows Server 2025 machine was used only for Phase 0 documentation; application work is paused until Linux is available.
+2. Repository location: `Z:\lab`. The earlier choice to move the repository to `D:` was reversed by the owner.
+3. Git commit identity: repository-local generic identity, recorded in the Git setup section above.
+4. GitHub remote: private repository `azzam-mo/EgyptLab-LIS`, authenticated as `azzam-mo`; local backup at `D:\EgyptLab-LIS-backup.git`.
 
 ## Unresolved items requiring owner decision
 
-1. Whether development will remain on this Windows host or move to a Linux host as the guide assumes.
-2. Whether the `Z:` SSHFS mount and the Git metadata workaround are acceptable for the project.
-3. How the Windows target laboratory machine will be accessed, maintained, and tested.
-4. Branch and server topology, including whether branches can operate during an inter-site outage.
-5. Which workflows must remain available offline.
-6. Whether one database or one server per site is intended, and how globally unique identifiers will be assigned.
-7. Whether multiple independent laboratory businesses (tenants) must be supported in one installation.
-8. Backup frequency, retention, encryption, RPO, RTO, and off-device storage.
-9. Names and roles of the qualified laboratory professionals who will approve test catalogues and clinical configuration.
-10. Installation of PostgreSQL for development, required by Phase 1.
+1. Branch and server topology, including whether branches can operate during an inter-site outage. The earlier answer “z return” referred to the repository location, not topology.
+2. Which workflows must remain available offline.
+3. Whether one database or one server per site is intended, and how globally unique identifiers will be assigned.
+4. Whether multiple independent laboratory businesses (tenants) must be supported in one installation; currently unknown.
+5. Backup frequency, retention, encryption, RPO, RTO, and off-device storage.
+6. Names and roles of the qualified laboratory professionals who will approve test catalogues and clinical configuration.
+7. Installation of PostgreSQL for development, required by Phase 1.
 
 ## Phase 0 acceptance status
 
-The environment is documented and the unresolved assumptions are explicitly recorded. The acceptance gate is **not yet approved**, because the owner decisions above are outstanding and the Linux/Windows mismatch is unresolved.
+The environment is documented and the owner decisions are recorded. The acceptance gate is **not yet approved**: the Linux host is not provisioned, and the topology, offline, tenancy, backup, and clinical-approver questions above remain open. GitHub version history is connected.
