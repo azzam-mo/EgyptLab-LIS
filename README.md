@@ -1,5 +1,7 @@
 # EgyptLab LIS
 
+Lab Management Software Built Around The Way Your Lab Operates
+
 A planned commercial Laboratory Information System for medical laboratories in Egypt, targeting a local Windows server deployment.
 
 **Status:** Phase 0 documentation and environment audit only. No application code, database schema, or product feature has been implemented.
