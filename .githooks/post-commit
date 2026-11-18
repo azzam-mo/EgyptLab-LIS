@@ -1,0 +1,21 @@
+#!/bin/sh
+# Backup every local commit to GitHub immediately.
+# Failures are logged locally; the commit itself is never rejected.
+
+branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || exit 0
+[ -n "$branch" ] || exit 0
+
+remote=${EGYPTLAB_BACKUP_REMOTE:-origin}
+git_dir=$(git rev-parse --git-dir)
+log_file="$git_dir/auto-push.log"
+timestamp=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+
+printf '%s pushing %s to %s\n' "$timestamp" "$branch" "$remote" >> "$log_file"
+
+if GIT_TERMINAL_PROMPT=0 git push --quiet "$remote" "HEAD:refs/heads/$branch" >/dev/null 2>>"$log_file"; then
+  printf '%s push ok\n' "$timestamp" >> "$log_file"
+else
+  printf '%s PUSH FAILED - run manually: git push %s %s\n' "$timestamp" "$remote" "$branch" >> "$log_file"
+fi
+
+exit 0
