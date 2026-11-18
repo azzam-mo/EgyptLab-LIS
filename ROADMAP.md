@@ -73,8 +73,8 @@
 - ✅ **0.1 اختيار الـ stack وتوثيقه** (لغة، قاعدة بيانات، framework، طريقة النشر).
   - *قبول:* `docs/architecture/decisions/0002-stack.md` فيه الاختيار والأسباب، وحالته `Accepted`.
   - *ملاحظة:* النص الأصلي كان يشير إلى `AGENTS.md` وإلى `docs/decisions/0001-stack.md`؛ عدّلناه ليطابق مسار السجلات المعتمد في المستودع.
-- ⬜ **0.2 هيكل المشروع وCI:** lint + tests + build على كل push.
-  - *قبول:* CI أخضر على branch فارغ.
+- ✅ **0.2 هيكل المشروع وCI:** lint + tests + build على كل push.
+  - *قبول:* CI أخضر على branch فارغ (GitHub Actions run `44265404092` على `feat/phase-0.2-foundation`: نجح backend build/test و frontend lint/test/build).
 - ⬜ **0.3 تصميم قاعدة البيانات الأولي (ERD)** للكيانات: patients, orders, order_items, tests, panels, reference_ranges, samples, results, result_versions, invoices, payments, users, roles, branches, audit_log.
   - *قبول:* مخطط + migration أولي، كل الجداول بـ UUID و`created_at/updated_at/deleted_at/branch_id`.
 - ⬜ **0.4 المصادقة والصلاحيات:** مستخدمون، أدوار (استقبال، فني، مراجع/دكتور، محاسب، مدير)، وربط بالفرع.
