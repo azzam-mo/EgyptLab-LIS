@@ -79,8 +79,9 @@
 - ✅ **0.3 تصميم قاعدة البيانات الأولي (ERD)** للكيانات: patients, orders, order_items, tests, panels, reference_ranges, samples, results, result_versions, invoices, payments, users, roles, branches, audit_log.
   - *قبول:* مخطط + migration أولي، كل الجداول بـ UUID و`created_at/updated_at/deleted_at/branch_id`.
   - *تم:* `docs/architecture/erd.md` و `backend/src/EgyptLab.LIS.Infrastructure` مع الـ migration `20261118083238_InitialSchema`. 18 جدولاً؛ أُضيفت `user_roles` و `panel_items` و `outbox_events` (الأخيرة مطلوبة في ADR-0002). 7 اختبارات للثوابت الطبية والمالية نجحت، إضافة إلى اختبار الـ health.
-- ⬜ **0.4 المصادقة والصلاحيات:** مستخدمون، أدوار (استقبال، فني، مراجع/دكتور، محاسب، مدير)، وربط بالفرع.
+- ✅ **0.4 المصادقة والصلاحيات:** مستخدمون، أدوار (استقبال، فني، مراجع/دكتور، محاسب، مدير)، وربط بالفرع.
   - *قبول:* اختبارات تثبت أن مستخدماً لا يرى بيانات فرع آخر ولا ينفذ ما ليس من دوره.
+  - *تم:* `docs/architecture/decisions/0003-authentication-and-authorization.md`. مصادقة JWT بمخزن مخصص وIdentity primitives؛ أدوار/frع، ثمانية اختبارات API واختبار عزل قاعدة البيانات نجحت. Migration: `20261118085228_AddAuthenticationFields`.
 - ⬜ **0.5 سجل التدقيق (audit_log)** كخدمة مشتركة تُستدعى تلقائياً مع كل تعديل.
   - *قبول:* أي update على مريض/نتيجة/فاتورة يظهر في السجل بقيمة قبل وبعد.
 - ⬜ **0.6 الواجهة:** RTL كامل، ترجمة عربي/إنجليزي، هيكل التنقل.

@@ -19,11 +19,11 @@ public sealed class SchemaInvariantTests
 
     private static LisDbContext CreateContext(SqliteConnection connection)
     {
-        var options = new DbContextOptionsBuilder<LisDbContext>()
-            .UseSqlite(connection)
-            .Options;
+        var builder = new DbContextOptionsBuilder<LisDbContext>();
+        builder.UseSqlite(connection);
+        builder.UseBranchScope();
 
-        return new LisDbContext(options);
+        return new LisDbContext(builder.Options);
     }
 
     private static List<IEntityType> DomainEntityTypes(LisDbContext context)
@@ -148,7 +148,25 @@ public sealed class SchemaInvariantTests
     }
 
     [Fact]
-    public void InitialMigrationAppliesToEmptyDatabaseAndSeedsNoClinicalValues()
+    public void EveryTableHasAnIndependentBranchScopeFilter()
+    {
+        using var connection = new SqliteConnection("Data Source=:memory:");
+        connection.Open();
+        using var context = CreateContext(connection);
+
+        foreach (var entityType in DomainEntityTypes(context))
+        {
+            var filters = entityType.GetDeclaredQueryFilters().ToList();
+            Assert.Equal(2, filters.Count);
+            Assert.Contains(
+                filters,
+                filter => filter.Expression!.ToString().Contains(
+                    nameof(AuditedEntity.BranchId), StringComparison.Ordinal));
+        }
+    }
+
+    [Fact]
+    public void AllMigrationsApplyToEmptyDatabaseAndSeedNoClinicalValues()
     {
         using var connection = new SqliteConnection("Data Source=:memory:");
         connection.Open();
@@ -171,12 +189,15 @@ public sealed class SchemaInvariantTests
             tableNames.Count == ExpectedTableCount,
             $"Expected {ExpectedTableCount} tables but found: {string.Join(", ", tableNames.Order())}");
 
-        var migrationId = Assert.Single(context.Database.GetMigrations());
         var migrationsAssembly = context.GetService<IMigrationsAssembly>();
-        var migrationClass = migrationsAssembly.Migrations[migrationId];
-        var migration = migrationsAssembly.CreateMigration(migrationClass, context.Database.ProviderName!);
-        var operations = migration.UpOperations;
+        var migrationIds = context.Database.GetMigrations().ToList();
+        Assert.NotEmpty(migrationIds);
 
-        Assert.DoesNotContain(operations, operation => operation is InsertDataOperation);
+        foreach (var migrationId in migrationIds)
+        {
+            var migrationClass = migrationsAssembly.Migrations[migrationId];
+            var migration = migrationsAssembly.CreateMigration(migrationClass, context.Database.ProviderName!);
+            Assert.DoesNotContain(migration.UpOperations, operation => operation is InsertDataOperation);
+        }
     }
 }

@@ -1,11 +1,12 @@
+using System.Linq.Expressions;
 using EgyptLab.LIS.Infrastructure.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace EgyptLab.LIS.Infrastructure.Persistence;
 
 /// <summary>
-/// Local branch database. All writes go through this context so later phases
-/// can add audit interception and branch-scoped authorization in one place.
+/// Local branch database. All writes go through this context so audit and
+/// branch-scoped authorization stay in one place.
 /// </summary>
 public sealed class LisDbContext(DbContextOptions<LisDbContext> options) : DbContext(options)
 {
@@ -48,5 +49,24 @@ public sealed class LisDbContext(DbContextOptions<LisDbContext> options) : DbCon
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(LisDbContext).Assembly);
+
+        // The soft-delete filter is configured in AuditedEntityConfiguration.
+        // Branch scope is added here so the current request value is read at
+        // query time and cannot leak through the EF model cache.
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()
+                     .Where(type => type.ClrType is not null
+                         && typeof(AuditedEntity).IsAssignableFrom(type.ClrType)))
+        {
+            var parameter = Expression.Parameter(entityType.ClrType!, "entity");
+            var branchProperty = Expression.Property(parameter, nameof(AuditedEntity.BranchId));
+            var currentBranch = Expression.Property(
+                null,
+                typeof(BranchScope),
+                nameof(BranchScope.CurrentBranchId));
+            var comparison = Expression.Equal(Expression.Convert(branchProperty, typeof(Guid?)), currentBranch);
+            var filter = Expression.Lambda(comparison, parameter);
+
+            modelBuilder.Entity(entityType.ClrType!).HasQueryFilter(QueryFilterKeys.BranchScope, filter);
+        }
     }
 }

@@ -10,6 +10,16 @@ public sealed class Branch : AuditedEntity
         BranchId = Id;
     }
 
+    public override Guid Id
+    {
+        get => base.Id;
+        set
+        {
+            base.Id = value;
+            BranchId = value;
+        }
+    }
+
     public string Code { get; set; } = string.Empty;
 
     public string Name { get; set; } = string.Empty;
@@ -18,7 +28,8 @@ public sealed class Branch : AuditedEntity
 }
 
 /// <summary>
-/// A named permission set. Role scope semantics are approved in Phase 0.4.
+/// A branch-scoped named permission set. Approved role-permission mapping is
+/// defined in the API authorization layer.
 /// </summary>
 public sealed class Role : AuditedEntity
 {
@@ -28,11 +39,14 @@ public sealed class Role : AuditedEntity
 }
 
 /// <summary>
-/// A staff account. Authentication fields are added with ASP.NET Core Identity.
+/// A staff account. Passwords are stored only as Identity password hashes;
+/// no plaintext password or recovery secret is persisted.
 /// </summary>
 public sealed class User : AuditedEntity
 {
     public string UserName { get; set; } = string.Empty;
+
+    public string NormalizedUserName { get; set; } = string.Empty;
 
     public string FullName { get; set; } = string.Empty;
 
@@ -40,7 +54,17 @@ public sealed class User : AuditedEntity
 
     public string? Phone { get; set; }
 
+    public string PasswordHash { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Changes invalidate existing tokens. This gives revocation without a
+    /// separate session table in the local-first database.
+    /// </summary>
+    public string SecurityStamp { get; set; } = Guid.NewGuid().ToString("N");
+
     public bool IsActive { get; set; } = true;
+
+    public DateTimeOffset? LastLoginAt { get; set; }
 }
 
 /// <summary>

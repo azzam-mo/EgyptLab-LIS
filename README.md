@@ -4,7 +4,7 @@ Lab Management Software Built Around The Way Your Lab Operates
 
 A planned commercial Laboratory Information System for medical laboratories in Egypt, targeting a local Windows server deployment.
 
-**Status:** Phase 0.1 and 0.2 are complete. Phase 0.3 adds the initial database design and migration. No clinical values or product workflow are implemented yet.
+**Status:** Phases 0.1 through 0.4 are complete. The initial database design, authentication, and backend-enforced role/branch permissions are present. No clinical values or product workflow are implemented yet.
 
 ## Governing documents
 
@@ -60,4 +60,15 @@ npm run test
 npm run build
 ```
 
-The backend exposes `GET /health` for smoke checks. The initial database migration and ERD are present in Phase 0.3; no clinical values or product workflow are seeded.
+The backend exposes `GET /health` for smoke checks. `POST /auth/login` accepts `branchCode`, `userName`, and `password`, then returns a bearer token. `GET /auth/me` returns the current identity and permissions. Manager-only `GET /admin/users` and `GET /admin/roles` demonstrate branch-scoped authorization.
+
+### Backend configuration
+
+| Setting | Purpose |
+| --- | --- |
+| `ConnectionStrings:Lis` | SQLite database path; defaults to `Data Source=egyptlab.db`. |
+| `Jwt:Issuer` / `Jwt:Audience` | Token issuer and audience; safe non-secret defaults are provided. |
+| `Jwt:ExpiryMinutes` | Access-token lifetime; defaults to 15 minutes. |
+| `Jwt:SigningKey` | Required in production and must be at least 32 bytes. Development generates an ephemeral key when absent; never commit a real key. |
+
+No administrator account or clinical value is seeded. Bootstrap and account-management procedures must be approved before deployment.

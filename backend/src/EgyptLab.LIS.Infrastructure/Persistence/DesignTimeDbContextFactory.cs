@@ -11,10 +11,10 @@ public sealed class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Lis
 {
     public LisDbContext CreateDbContext(string[] args)
     {
-        var options = new DbContextOptionsBuilder<LisDbContext>()
-            .UseSqlite("Data Source=egyptlab-design.db")
-            .Options;
+        var builder = new DbContextOptionsBuilder<LisDbContext>();
+        builder.UseSqlite("Data Source=egyptlab-design.db");
+        builder.UseBranchScope();
 
-        return new LisDbContext(options);
+        return new LisDbContext(builder.Options);
     }
 }

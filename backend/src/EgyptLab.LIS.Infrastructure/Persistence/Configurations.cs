@@ -22,7 +22,7 @@ public abstract class AuditedEntityConfiguration<TEntity> : IEntityTypeConfigura
         builder.Property(entity => entity.CreatedAt).IsRequired();
         builder.Property(entity => entity.UpdatedAt).IsRequired();
         builder.Property(entity => entity.DeletedAt);
-        builder.HasQueryFilter(entity => entity.DeletedAt == null);
+        builder.HasQueryFilter(QueryFilterKeys.SoftDelete, entity => entity.DeletedAt == null);
     }
 }
 
@@ -60,10 +60,13 @@ public sealed class UserConfiguration : AuditedEntityConfiguration<User>
     {
         base.Configure(builder);
         builder.Property(entity => entity.UserName).HasMaxLength(100).IsRequired();
+        builder.Property(entity => entity.NormalizedUserName).HasMaxLength(100).IsRequired();
         builder.Property(entity => entity.FullName).HasMaxLength(200).IsRequired();
         builder.Property(entity => entity.Email).HasMaxLength(200);
         builder.Property(entity => entity.Phone).HasMaxLength(32);
-        builder.HasIndex(entity => new { entity.BranchId, entity.UserName }).IsUnique();
+        builder.Property(entity => entity.PasswordHash).HasMaxLength(500).IsRequired();
+        builder.Property(entity => entity.SecurityStamp).HasMaxLength(100).IsRequired();
+        builder.HasIndex(entity => new { entity.BranchId, entity.NormalizedUserName }).IsUnique();
     }
 }
 

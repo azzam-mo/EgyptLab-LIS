@@ -7,7 +7,7 @@ namespace EgyptLab.LIS.Infrastructure.Domain;
 /// </summary>
 public abstract class AuditedEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public virtual Guid Id { get; set; } = Guid.NewGuid();
 
     public Guid BranchId { get; set; }
 
