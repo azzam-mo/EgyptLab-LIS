@@ -8,9 +8,11 @@ A planned commercial Laboratory Information System for medical laboratories in E
 
 ## Governing documents
 
-- `IMPLEMENTATION_GUIDE.md` — phased roadmap, rules, and acceptance gates.
+- `ROADMAP.md` — authoritative phase sequence and project rules. When it conflicts with the guide below, the roadmap governs and the conflict must be recorded.
+- `IMPLEMENTATION_GUIDE.md` — detailed execution reference, rules, and acceptance gates.
 - `CLAUDE.md` — permanent rules for AI coding agents.
 - `docs/operations/environment-audit.md` — verified facts about the current environment.
+- `docs/operations/git-workflow.md` — GitHub-as-source-of-truth routine and automatic commit backup.
 - `docs/requirements/scope-and-exclusions.md` — draft scope, exclusions, and open questions.
 - `docs/architecture/decisions/` — Architecture Decision Record log.
 

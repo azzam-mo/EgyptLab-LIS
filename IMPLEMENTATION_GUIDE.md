@@ -1,5 +1,7 @@
 EgyptLab LIS — Phased Implementation Guide
 
+> **Authority note:** `ROADMAP.md` is the authoritative phase plan. This document remains a detailed execution reference. Its 11-phase breakdown does not match the 6-phase roadmap; the difference is recorded for owner review and must not be resolved by assumption.
+
 Document type: Development execution guide
 Version: 1.1
 Date: 17 November 2026
@@ -55,6 +57,8 @@ EgyptLab LIS is intended to be a commercial Laboratory Information System for me
 |Later services|Background worker, message broker, cloud sync|Add only when justified                                    |
 
 Do not finalize package versions or deployment tools until a small technical prototype has been tested on Linux and on the intended Windows environment.
+
+> **Superseded:** the technology table above was an unaccepted proposal. The owner accepted `docs/architecture/decisions/0002-stack.md` on 18 November 2026, so that ADR is the binding stack decision. Update this table before using it as implementation guidance.
 
 ────────
 
