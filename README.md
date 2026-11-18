@@ -4,7 +4,7 @@ Lab Management Software Built Around The Way Your Lab Operates
 
 A planned commercial Laboratory Information System for medical laboratories in Egypt, targeting a local Windows server deployment.
 
-**Status:** Phase 0 documentation and environment audit only. No application code, database schema, or product feature has been implemented.
+**Status:** Phase 0.1 is complete. Phase 0.2 adds the backend and frontend foundation with CI. No product feature or database schema has been implemented yet.
 
 ## Governing documents
 
@@ -20,6 +20,9 @@ A planned commercial Laboratory Information System for medical laboratories in E
 
 | Path | Purpose |
 | --- | --- |
+| `backend/` | ASP.NET Core API and xUnit test project |
+| `frontend/` | React + TypeScript client |
+| `.github/workflows/` | GitHub Actions CI |
 | `docs/architecture/` | Architecture diagrams and technical design |
 | `docs/architecture/decisions/` | Architecture Decision Records |
 | `docs/requirements/` | Approved functional and non-functional requirements |
@@ -32,10 +35,26 @@ The directories for security, clinical configuration, and testing are placeholde
 
 ## Working tree and Git metadata
 
-The repository is stored entirely at `Z:\lab`, including a real `.git` directory. `git init` fails directly on this SSHFS mount, so the `.git` directory was created locally and copied into place; verified with `git -C Z:\lab status`. Avoid deleting or replacing that directory.
+GitHub is the source of truth: `https://github.com/azzam-mo/EgyptLab-LIS` (private). Work is done on a local clone and pushed immediately after every commit by the `post-commit` hook described in `docs/operations/git-workflow.md`.
 
-GitHub remote: `https://github.com/azzam-mo/EgyptLab-LIS` (private). Local backup remote: `D:\EgyptLab-LIS-backup.git`.
+Earlier Phase 0 notes recorded a `Z:\lab` SSHFS working tree. That is historical documentation and no longer describes the active clone.
 
 ## Quick start
 
-There is no application to start yet. Phase 1 will add the backend and frontend skeletons, PostgreSQL development configuration, quality checks, and documented startup instructions.
+Prerequisites: .NET 10 SDK and Node.js 22.
+
+```sh
+# Backend
+dotnet restore EgyptLab.LIS.slnx
+dotnet build EgyptLab.LIS.slnx --configuration Release
+dotnet test EgyptLab.LIS.slnx --configuration Release
+
+# Frontend
+cd frontend
+npm ci
+npm run lint
+npm run test
+npm run build
+```
+
+The backend exposes `GET /health` for smoke checks. No clinical data, database schema, or product workflow is present yet.
