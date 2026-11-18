@@ -3,6 +3,10 @@
 Status: Active for this repository
 Date: 18 November 2026
 
+## Owner decision (18 November 2026)
+
+The owner decided that this repository does **not use pull requests**. All accepted work, including documentation and code, is committed directly to `main` and pushed immediately by the automatic backup hook. This supersedes the earlier requirement to open pull requests for review. The decision applies to every later task.
+
 ## Source of truth
 
 GitHub is the source of truth. The private repository is:
@@ -13,11 +17,10 @@ No work should remain only on a local machine. Every accepted change must be pus
 
 ## Required routine
 
-1. **Before starting work:** `git fetch origin && git pull --rebase origin main` (or the current feature branch).
-2. **Work on one bounded task at a time** on a feature branch, for example `docs/stack-adr`.
-3. **After every commit:** the local `post-commit` hook pushes the current branch to `origin` automatically.
-4. **Open a pull request** into `main` for review. Do not merge without owner approval.
-5. **After merge:** switch to `main`, pull, and delete the merged local and remote feature branch.
+1. **Before starting work:** `git fetch origin && git pull --rebase origin main`.
+2. **Work on one bounded task at a time** directly on `main`. Do not create feature branches.
+3. **After every commit:** the local `post-commit` hook pushes `main` to `origin` automatically. There is no pull request and no separate merge step.
+4. **Verify the backup** using the checklist below.
 
 ## Automatic backup hook
 
@@ -29,7 +32,7 @@ git config core.hooksPath .githooks
 
 The hook:
 
-- pushes the current branch to `origin` after every commit;
+- pushes `main` to `origin` after every commit;
 - never fails the commit if the network or authentication is unavailable;
 - writes success and failure records to `.git/auto-push.log` inside the local repository.
 
@@ -47,10 +50,10 @@ After a commit, confirm that the backup happened:
 
 ```sh
 git status --short --branch
-git log origin/<branch> -1 --oneline
+git log origin/main -1 --oneline
 ```
 
-The local commit and `origin/<branch>` must have the same hash.
+The local commit and `origin/main` must have the same hash.
 
 ## Known limitation
 
