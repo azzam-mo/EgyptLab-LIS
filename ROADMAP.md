@@ -37,7 +37,7 @@
 
 ## الـ Stack
 
-> يُحدَّد في Phase 0 ويُكتب هنا. لحد ما يتحدد: اسأل المالك قبل اختيار لغة أو قاعدة بيانات أو framework.
+> مسودة الاختيار: [ADR-0002](docs/architecture/decisions/0002-stack.md) يقترح ASP.NET Core + EF Core + React/TypeScript + SQLite محلياً، مع PostgreSQL لاحقاً في مرحلة المزامنة. **الحالة: مقترح بانتظار اعتماد المالك**؛ لا يُعد نهائياً قبل تغيير حالة السجل إلى `Accepted`.
 
 ## قواعد العمل
 
@@ -70,8 +70,9 @@
 
 **الهدف:** مشروع يعمل، ومكتوب فيه القرارات الأساسية.
 
-- ⬜ **0.1 اختيار الـ stack وتوثيقه** في `AGENTS.md` (لغة، قاعدة بيانات، framework، طريقة النشر).
-  - *قبول:* ملف `docs/decisions/0001-stack.md` فيه الاختيار والأسباب.
+- 🟨 **0.1 اختيار الـ stack وتوثيقه** (لغة، قاعدة بيانات، framework، طريقة النشر).
+  - *قبول:* سجل قرار فيه الاختيار والأسباب. تُنشأ المسودة في `docs/architecture/decisions/0002-stack.md` وبانتظار اعتماد المالك؛ لم يُغلق المعيار بعد.
+  - *ملاحظة:* النص الأصلي كان يشير إلى `AGENTS.md` وإلى `docs/decisions/0001-stack.md`؛ عدّلناه ليطابق مسار السجلات المعتمد في المستودع.
 - ⬜ **0.2 هيكل المشروع وCI:** lint + tests + build على كل push.
   - *قبول:* CI أخضر على branch فارغ.
 - ⬜ **0.3 تصميم قاعدة البيانات الأولي (ERD)** للكيانات: patients, orders, order_items, tests, panels, reference_ranges, samples, results, result_versions, invoices, payments, users, roles, branches, audit_log.

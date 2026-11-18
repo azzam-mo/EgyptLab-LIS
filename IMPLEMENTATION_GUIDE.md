@@ -58,6 +58,8 @@ EgyptLab LIS is intended to be a commercial Laboratory Information System for me
 
 Do not finalize package versions or deployment tools until a small technical prototype has been tested on Linux and on the intended Windows environment.
 
+> A competing, unaccepted proposal is recorded in `docs/architecture/decisions/0002-stack.md`. It must be reviewed by the owner before the table above is treated as the selected stack.
+
 ────────
 
 3. Architecture Decisions to Confirm Before Building
