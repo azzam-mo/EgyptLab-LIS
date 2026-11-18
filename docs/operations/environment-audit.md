@@ -72,7 +72,7 @@ Verified: `git -C Z:\lab status --short --branch` works. A repository-local comm
 
 ## Owner decisions recorded during Phase 0
 
-1. Development environment: a Linux host will be provisioned. This Windows Server 2025 machine was used only for Phase 0 documentation; application work is paused until Linux is available.
+1. Development environment: a Linux host was originally planned. On 18 November 2026 the owner explicitly allowed application work on this Windows Server 2025 machine, so Linux is no longer a blocker.
 2. Repository location: `Z:\lab`. The earlier choice to move the repository to `D:` was reversed by the owner.
 3. Git commit identity: repository-local generic identity, recorded in the Git setup section above.
 4. GitHub remote: private repository `azzam-mo/EgyptLab-LIS`, authenticated as `azzam-mo`; local backup at `D:\EgyptLab-LIS-backup.git`.
@@ -89,4 +89,4 @@ Verified: `git -C Z:\lab status --short --branch` works. A repository-local comm
 
 ## Phase 0 acceptance status
 
-The environment is documented and the owner decisions are recorded. The acceptance gate is **not yet approved**: the Linux host is not provisioned, and the topology, offline, tenancy, backup, and clinical-approver questions above remain open. GitHub version history is connected.
+The environment is documented and the owner decisions are recorded. The Linux-host blocker was removed by explicit owner approval on 18 November 2026. The acceptance gate is **not yet approved**: the topology, offline, tenancy, backup, and clinical-approver questions above remain open. GitHub version history is connected.
