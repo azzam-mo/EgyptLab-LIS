@@ -18,8 +18,6 @@ namespace EgyptLab.LIS.Api.Tests;
 
 public sealed class AuthenticationTests : IClassFixture<AuthTestFactory>
 {
-    internal const string TestSigningKey = "integration-test-signing-key-at-least-32-bytes";
-
     private readonly AuthTestFactory _factory;
 
     public AuthenticationTests(AuthTestFactory factory)
@@ -186,6 +184,20 @@ public sealed class AuthTestFactory : WebApplicationFactory<Program>
     private readonly SqliteConnection _anchorConnection;
     private readonly string _connectionString;
 
+    // Program reads JWT settings while the host is being built, before
+    // WebApplicationFactory's in-memory configuration is applied. Set the
+    // synthetic values as environment variables so issuance and validation
+    // always use the same shared test key.
+    static AuthTestFactory()
+    {
+        Environment.SetEnvironmentVariable("Jwt__Issuer", JwtTestConfiguration.Issuer);
+        Environment.SetEnvironmentVariable("Jwt__Audience", JwtTestConfiguration.Audience);
+        Environment.SetEnvironmentVariable("Jwt__SigningKey", JwtTestConfiguration.SigningKey);
+        Environment.SetEnvironmentVariable(
+            "Jwt__ExpiryMinutes",
+            JwtTestConfiguration.ExpiryMinutes.ToString(System.Globalization.CultureInfo.InvariantCulture));
+    }
+
     public AuthTestFactory()
     {
         var databaseName = $"auth-{Guid.NewGuid():N}";
@@ -228,10 +240,11 @@ public sealed class AuthTestFactory : WebApplicationFactory<Program>
             configuration.AddInMemoryCollection(new Dictionary<string, string?>
             {
                 ["ConnectionStrings:Lis"] = _connectionString,
-                ["Jwt:Issuer"] = "egyptlab-tests",
-                ["Jwt:Audience"] = "egyptlab-test-clients",
-                ["Jwt:SigningKey"] = AuthenticationTests.TestSigningKey,
-                ["Jwt:ExpiryMinutes"] = "15"
+                ["Jwt:Issuer"] = JwtTestConfiguration.Issuer,
+                ["Jwt:Audience"] = JwtTestConfiguration.Audience,
+                ["Jwt:SigningKey"] = JwtTestConfiguration.SigningKey,
+                ["Jwt:ExpiryMinutes"] = JwtTestConfiguration.ExpiryMinutes
+                    .ToString(System.Globalization.CultureInfo.InvariantCulture)
             });
         });
 

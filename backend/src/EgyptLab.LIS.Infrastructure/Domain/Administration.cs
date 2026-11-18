@@ -64,6 +64,13 @@ public sealed class User : AuditedEntity
 
     public bool IsActive { get; set; } = true;
 
+    /// <summary>
+    /// Set during one-time bootstrap provisioning. Login is refused until the
+    /// temporary password is replaced, so the initial credential cannot be
+    /// used as a normal session.
+    /// </summary>
+    public bool MustChangePassword { get; set; }
+
     public DateTimeOffset? LastLoginAt { get; set; }
 }
 

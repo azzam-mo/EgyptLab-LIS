@@ -78,6 +78,7 @@ erDiagram
         TEXT password_hash
         TEXT security_stamp
         INTEGER is_active
+        INTEGER must_change_password
         TEXT last_login_at
     }
     user_roles {

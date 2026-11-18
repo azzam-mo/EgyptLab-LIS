@@ -9,6 +9,7 @@ Every major architecture decision must be recorded here with context, options, s
 | [0001](0001-development-environment-and-git-metadata.md) | Development environment and Git metadata location | Proposed — pending owner approval | 17 November 2026 |
 | [0002](0002-stack.md) | Application stack for the local-first LIS | Accepted | 18 November 2026 |
 | [0003](0003-authentication-and-authorization.md) | Authentication and authorization model | Accepted | 18 November 2026 |
+| [0004](0004-audit-logging.md) | Audit logging for clinical and financial changes | Accepted | 18 November 2026 |
 
 ## Template for new ADRs
 

@@ -46,6 +46,14 @@ public sealed class LisDbContext(DbContextOptions<LisDbContext> options) : DbCon
 
     public DbSet<OutboxEvent> OutboxEvents => Set<OutboxEvent>();
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // ADR-0002 requires an EF Core SaveChanges interceptor. Adding it here,
+        // rather than only in API dependency injection, makes every context use
+        // the same audit path, including tests and design-time contexts.
+        optionsBuilder.AddInterceptors(AuditWriter.Instance, SqlitePragmaInterceptor.Instance);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(LisDbContext).Assembly);

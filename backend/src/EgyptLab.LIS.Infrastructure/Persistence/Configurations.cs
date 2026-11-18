@@ -66,6 +66,7 @@ public sealed class UserConfiguration : AuditedEntityConfiguration<User>
         builder.Property(entity => entity.Phone).HasMaxLength(32);
         builder.Property(entity => entity.PasswordHash).HasMaxLength(500).IsRequired();
         builder.Property(entity => entity.SecurityStamp).HasMaxLength(100).IsRequired();
+        builder.Property(entity => entity.MustChangePassword).IsRequired().HasDefaultValue(false);
         builder.HasIndex(entity => new { entity.BranchId, entity.NormalizedUserName }).IsUnique();
     }
 }
