@@ -25,7 +25,7 @@ Read `IMPLEMENTATION_GUIDE.md` before any work. These rules must not be overridd
 ## Environment and repository notes
 
 - Working tree and Git metadata are both on `Z:\lab`, an SSHFS mount. `git init` fails on this mount, but a real `.git` directory copied from a locally initialized repository works. Do not replace it with a pointer file.
-- The owner decided to provision a Linux development host. Application work is paused until that host is available; this Windows machine was used only for Phase 0 documentation.
+- The owner originally planned to provision a Linux development host. On 18 November 2026 the owner explicitly allowed application work to proceed on this Windows machine, so the Linux host is no longer a blocker. Windows deployment remains the target and must still be validated.
 - Verified host facts are recorded in `docs/operations/environment-audit.md`.
 
 ## Task report format
