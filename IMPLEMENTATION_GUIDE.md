@@ -58,7 +58,7 @@ EgyptLab LIS is intended to be a commercial Laboratory Information System for me
 
 Do not finalize package versions or deployment tools until a small technical prototype has been tested on Linux and on the intended Windows environment.
 
-> A competing, unaccepted proposal is recorded in `docs/architecture/decisions/0002-stack.md`. It must be reviewed by the owner before the table above is treated as the selected stack.
+> **Superseded:** the technology table above was an unaccepted proposal. The owner accepted `docs/architecture/decisions/0002-stack.md` on 18 November 2026, so that ADR is the binding stack decision. Update this table before using it as implementation guidance.
 
 ────────
 

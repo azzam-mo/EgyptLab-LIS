@@ -7,7 +7,7 @@ Every major architecture decision must be recorded here with context, options, s
 | ADR | Title | Status | Date |
 | --- | --- | --- | --- |
 | [0001](0001-development-environment-and-git-metadata.md) | Development environment and Git metadata location | Proposed — pending owner approval | 17 November 2026 |
-| [0002](0002-stack.md) | Application stack for the local-first LIS | Proposed — pending owner approval | 18 November 2026 |
+| [0002](0002-stack.md) | Application stack for the local-first LIS | Accepted | 18 November 2026 |
 
 ## Template for new ADRs
 

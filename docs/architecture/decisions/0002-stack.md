@@ -1,8 +1,8 @@
 # ADR-0002 — Application Stack for the Local-First LIS
 
-Status: Proposed — pending owner approval
+Status: Accepted
 Date: 2026-11-18
-Owner: project owner to confirm
+Owner: project owner — accepted 18 November 2026
 
 ## Context
 
@@ -116,4 +116,4 @@ Negative or unresolved:
 
 ## Approval
 
-Pending. The project owner must set the status to `Accepted` before this stack is treated as binding. If accepted, update `ROADMAP.md` section `الـ Stack` and task `0.1` accordingly, and mark the previously unaccepted proposal in `IMPLEMENTATION_GUIDE.md` as superseded.
+Accepted by the project owner on 18 November 2026. This decision is binding for Phase 0.1 and later phases until superseded by another ADR. `ROADMAP.md` section `الـ Stack` and task `0.1` have been updated, and the unaccepted proposal in `IMPLEMENTATION_GUIDE.md` is marked superseded.
