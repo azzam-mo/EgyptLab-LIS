@@ -1,5 +1,7 @@
 EgyptLab LIS — Phased Implementation Guide
 
+> **Authority note:** `ROADMAP.md` is the authoritative phase plan. This document remains a detailed execution reference. Its 11-phase breakdown does not match the 6-phase roadmap; the difference is recorded for owner review and must not be resolved by assumption.
+
 Document type: Development execution guide
 Version: 1.1
 Date: 17 November 2026
