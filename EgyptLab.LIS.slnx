@@ -2,8 +2,10 @@
   <Folder Name="/backend/" />
   <Folder Name="/backend/src/">
     <Project Path="backend/src/EgyptLab.LIS.Api/EgyptLab.LIS.Api.csproj" />
+    <Project Path="backend/src/EgyptLab.LIS.Infrastructure/EgyptLab.LIS.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/backend/tests/">
     <Project Path="backend/tests/EgyptLab.LIS.Api.Tests/EgyptLab.LIS.Api.Tests.csproj" />
+    <Project Path="backend/tests/EgyptLab.LIS.Infrastructure.Tests/EgyptLab.LIS.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

@@ -17,6 +17,13 @@ node_modules/
 dist/
 build/
 
+# Local SQLite databases (may contain patient data)
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
 # Environment and secrets
 .env
 .env.*

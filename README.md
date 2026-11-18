@@ -4,7 +4,7 @@ Lab Management Software Built Around The Way Your Lab Operates
 
 A planned commercial Laboratory Information System for medical laboratories in Egypt, targeting a local Windows server deployment.
 
-**Status:** Phase 0.1 is complete. Phase 0.2 adds the backend and frontend foundation with CI. No product feature or database schema has been implemented yet.
+**Status:** Phase 0.1 and 0.2 are complete. Phase 0.3 adds the initial database design and migration. No clinical values or product workflow are implemented yet.
 
 ## Governing documents
 
@@ -20,11 +20,13 @@ A planned commercial Laboratory Information System for medical laboratories in E
 
 | Path | Purpose |
 | --- | --- |
-| `backend/` | ASP.NET Core API and xUnit test project |
+| `backend/` | ASP.NET Core API, EF Core persistence, and xUnit test projects |
 | `frontend/` | React + TypeScript client |
 | `.github/workflows/` | GitHub Actions CI |
+| `docs/architecture/erd.md` | Initial database ERD and schema conventions |
 | `docs/architecture/` | Architecture diagrams and technical design |
 | `docs/architecture/decisions/` | Architecture Decision Records |
+| `docs/research/` | Reference LIS research notes |
 | `docs/requirements/` | Approved functional and non-functional requirements |
 | `docs/security/` | Security model and threat reviews |
 | `docs/clinical-configuration/` | Professionally approved test and clinical configuration |
@@ -44,7 +46,8 @@ Earlier Phase 0 notes recorded a `Z:\lab` SSHFS working tree. That is historical
 Prerequisites: .NET 10 SDK and Node.js 22.
 
 ```sh
-# Backend
+# Backend (restore the local EF tool before generating migrations)
+dotnet tool restore
 dotnet restore EgyptLab.LIS.slnx
 dotnet build EgyptLab.LIS.slnx --configuration Release
 dotnet test EgyptLab.LIS.slnx --configuration Release
@@ -57,4 +60,4 @@ npm run test
 npm run build
 ```
 
-The backend exposes `GET /health` for smoke checks. No clinical data, database schema, or product workflow is present yet.
+The backend exposes `GET /health` for smoke checks. The initial database migration and ERD are present in Phase 0.3; no clinical values or product workflow are seeded.

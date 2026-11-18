@@ -76,8 +76,9 @@
   - *ملاحظة:* النص الأصلي كان يشير إلى `AGENTS.md` وإلى `docs/decisions/0001-stack.md`؛ عدّلناه ليطابق مسار السجلات المعتمد في المستودع.
 - ✅ **0.2 هيكل المشروع وCI:** lint + tests + build على كل push.
   - *قبول:* CI أخضر على branch فارغ (GitHub Actions run `44265404092` على `feat/phase-0.2-foundation`: نجح backend build/test و frontend lint/test/build).
-- ⬜ **0.3 تصميم قاعدة البيانات الأولي (ERD)** للكيانات: patients, orders, order_items, tests, panels, reference_ranges, samples, results, result_versions, invoices, payments, users, roles, branches, audit_log.
+- ✅ **0.3 تصميم قاعدة البيانات الأولي (ERD)** للكيانات: patients, orders, order_items, tests, panels, reference_ranges, samples, results, result_versions, invoices, payments, users, roles, branches, audit_log.
   - *قبول:* مخطط + migration أولي، كل الجداول بـ UUID و`created_at/updated_at/deleted_at/branch_id`.
+  - *تم:* `docs/architecture/erd.md` و `backend/src/EgyptLab.LIS.Infrastructure` مع الـ migration `20261118083238_InitialSchema`. 18 جدولاً؛ أُضيفت `user_roles` و `panel_items` و `outbox_events` (الأخيرة مطلوبة في ADR-0002). 7 اختبارات للثوابت الطبية والمالية نجحت، إضافة إلى اختبار الـ health.
 - ⬜ **0.4 المصادقة والصلاحيات:** مستخدمون، أدوار (استقبال، فني، مراجع/دكتور، محاسب، مدير)، وربط بالفرع.
   - *قبول:* اختبارات تثبت أن مستخدماً لا يرى بيانات فرع آخر ولا ينفذ ما ليس من دوره.
 - ⬜ **0.5 سجل التدقيق (audit_log)** كخدمة مشتركة تُستدعى تلقائياً مع كل تعديل.
